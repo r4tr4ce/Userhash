@@ -21,9 +21,13 @@ namespace Userhash
         public static User signed;
         public static int openFormsCount = 0;
         private static string xmlFilePath;
+        public static string projectFolderPath = Directory.GetParent(Application.StartupPath)?.Parent?.FullName;
         public Form1()
         {
             InitializeComponent();
+            //Db.Connect();
+            //Db.Update();
+            Db.LoadData();
             LoadUsersFromXml();
             FormContent formContent = new FormContent();
             this.FormClosed += MainForm_FormClosed;
@@ -77,8 +81,6 @@ namespace Userhash
         {
             try
             {
-                string startupPath = Application.StartupPath;
-                string projectFolderPath = Directory.GetParent(startupPath)?.Parent?.FullName;
                 xmlFilePath = Path.Combine(projectFolderPath, "UserData.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(xmlFilePath);
